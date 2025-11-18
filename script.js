@@ -1,1 +1,1 @@
-console.log('Memory King listo');
+console.log('vida facil');

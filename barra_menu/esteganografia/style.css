@@ -1,0 +1,10 @@
+body { font-family: Arial, sans-serif; background: #111; color: #fff; text-align: center; padding: 40px; }
+/* menú en modo claro */
+body:not(.dark) #header {
+    background: #827ccb !important; /* color que tú quieres */
+}
+
+/* menú en modo oscuro */
+body.dark #header {
+    background: #2e3842 !important;
+}

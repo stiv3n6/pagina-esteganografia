@@ -1,3 +1,81 @@
+/* Quita espacios gigantes alrededor */
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Contenedor centrado */
+.wrapper-est {
+    max-width: 900px;
+    margin: 40px auto;
+}
+/* HEADER EN MODO CLARO */
+body.light #header {
+    background: #827ccb; /* tu color */
+}
+
+/* HEADER EN MODO OSCURO */
+body.dark #header {
+    background: #1b1b1b;
+}
+/* Modo claro: texto oscuro para el menú */
+body.light #header h1 a,
+body.light #header nav a {
+    color: #222 !important;
+}
+
+/* Color del icono del menú */
+body.light #header .menuToggle:before {
+    color: #222 !important;
+}
+/* --- BARRA DE MENÚ --- */
+.header-bar {
+    background-color: #1b1b1b; /* oscuro por defecto */
+}
+
+/* Modo claro */
+body.light .header-bar {
+    background-color: #000000; /* barra clara */
+    color: #000 !important; /* texto negro */
+}
+
+body.light #nav a,
+body.light #nav .menuToggle span {
+    color: #000 !important; /* ENLACES DEL MENÚ NEGROS */
+}
+body.light header {
+    background-color: #222 !important;  /* negro */
+    color: white !important;
+}
+
+body.light #menu {
+    background-color: #333 !important;
+}
+body.light a, 
+body.light #menu a {
+    color: white !important;
+}
+
+/* Modo oscuro */
+body.dark #nav a,
+body.dark #nav .menuToggle span {
+    color: #fff !important; /* ENLACES BLANCOS */
+}
+/* Fondo barra menú en modo claro */
+body:not(.dark) #header {
+    background-color: #111; /* negro */
+}
+
+/* Fondo barra menú en modo oscuro */
+body.dark #header {
+    background-color: #000; /* más negro */
+}
+
+/* Color del texto del menú */
+#header a {
+    color: white !important;
+}
+
 #toggleDark {
     position: fixed;
     top: 10px;
@@ -26,4 +104,49 @@ body.dark #toggleDark {
 body.dark {
     background: #0d0d0d !important;
     color: #ffffff !important;
+}
+/* BOTÓN WHATSAPP SOLO EN INICIO */
+.whatsapp-inicio {
+    position: fixed;
+    bottom: 45px;
+    right: 25px;
+    width: 65px;
+    height: 65px;
+    background: transparent;
+    border-radius: 50%;
+    box-shadow: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    transition: transform 0.2s ease;
+}
+
+.whatsapp-inicio img {
+    width: 60px;
+    height: 60px;
+}
+
+.whatsapp-inicio:hover {
+    transform: scale(1.30);
+}
+
+/* COMPATIBLE CON MODO OSCURO */
+body.dark .whatsapp-inicio {
+    background: transparent;
+}
+/* HEADER CLARO (cuando NO está dark) */
+body:not(.dark) #header {
+    background: #000000;      /* negro sólido */
+}
+
+body:not(.dark) #header a {
+    color: white;
+}
+body:not(.dark) #header {
+    background: #000 !important;
+}
+
+body:not(.dark) #header a {
+    color: #fff !important;
 }

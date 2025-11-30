@@ -5,17 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- GLOBAL STYLES -->
-   <div id="globalStyles"></div>
-<script>
-fetch("/components/global-styles.css")
-    .then(r => r.text())
-    .then(h => document.getElementById("globalStyles").innerHTML = h);
-</script>
-
     <title>Vida Facil - Esteganografía</title>
 
+    <!-- / estilos globales -->
+    <link rel="stylesheet" href="./assets/css/main.css">        <!-- / diseño base -->
+    <link rel="stylesheet" href="./assets/css/darkmode.css">    <!-- / modo oscuro -->
+    <link rel="stylesheet" href="./assets/css/fontawesome-all.min.css"> <!-- / iconos -->
+    <link rel="icon" href="./images/favicon.ico">               <!-- / favicon -->
+    <noscript><link rel="stylesheet" href="./assets/css/noscript.css"></noscript>
+
     <style>
+        /* / caja del generador de esteganografía */
         .tool-box {
             max-width: 900px;
             margin: 1em auto;
@@ -33,16 +33,39 @@ fetch("/components/global-styles.css")
     </style>
 </head>
 
-<body class="landing">
+<body class="landing is-preload">
 
     <!-- HEADER -->
     <div id="header"></div>
     <script>
-    fetch("/components/header.html")
-    .then(r => r.text())
-    .then(h => {
-        document.getElementById("header").innerHTML = h;
-    });
+        // / misma función para activar Menú después de cargar header
+        function initMenuToggle() {
+            const body = document.body;
+            const toggles = document.querySelectorAll('.menuToggle');
+            const menu = document.getElementById('menu');
+
+            if (!toggles.length || !menu) return;
+
+            toggles.forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    body.classList.toggle('is-menu-visible');
+                });
+            });
+
+            menu.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', function () {
+                    body.classList.remove('is-menu-visible');
+                });
+            });
+        }
+
+        fetch("./components/header.html")
+            .then(r => r.text())
+            .then(h => {
+                document.getElementById("header").innerHTML = h; // / inserta header
+                initMenuToggle();                               // / activa Menú
+            });
     </script>
 
     <div id="page-wrapper">
@@ -62,32 +85,28 @@ fetch("/components/global-styles.css")
     <!-- FOOTER -->
     <div id="footer"></div>
     <script>
-        fetch("/components/footer.html")
+        fetch("./components/footer.html")
             .then(r => r.text())
             .then(h => document.getElementById("footer").innerHTML = h);
     </script>
 
-    <!-- GLOBAL SCRIPTS -->
-        <script>
-        fetch("/components/global-scripts.html")
-        .then(r => r.text())
-        .then(js => {
-            const temp = document.createElement("div");
-            temp.innerHTML = js;
-            temp.querySelectorAll("script").forEach(s => {
-                const real = document.createElement("script");
-                if (s.src) real.src = s.src;
-                else real.innerHTML = s.innerHTML;
-                document.body.appendChild(real);
-            });
-        });
-        </script>
+    <!-- SCRIPTS GLOBALES (SIN main.js) -->
+    <script src="./assets/js/jquery.min.js"></script>
+    <script src="./assets/js/jquery.scrollex.min.js"></script>
+    <script src="./assets/js/jquery.scrolly.min.js"></script>
+    <script src="./assets/js/browser.min.js"></script>
+    <script src="./assets/js/breakpoints.min.js"></script>
+    <script src="./assets/js/util.js"></script>
+    <script src="./assets/js/darkmode.js"></script>
 
-
+    <!-- / lógica simple de esteganografía -->
     <script>
-        function generar() {
+        function generar() { // / convierte texto en binario oculto con caracteres invisibles
             let t = document.getElementById("texto").value;
-            if (!t.trim()) return document.getElementById("resultado").value = "";
+            if (!t.trim()) {
+                document.getElementById("resultado").value = "";
+                return;
+            }
             let oculto = "";
             for (let c of t) {
                 oculto += c.charCodeAt(0)
@@ -99,7 +118,18 @@ fetch("/components/global-styles.css")
             document.getElementById("resultado").value = oculto;
         }
     </script>
-
+<script>
+document.querySelectorAll('[data-include]').forEach(async el => {
+    const file = el.getAttribute('data-include');
+    try {
+        const response = await fetch(file);
+        const content = await response.text();
+        el.outerHTML = content;
+    } catch (err) {
+        console.error("Error cargando:", file, err);
+        el.innerHTML = "<!-- Error cargando componente -->";
+    }
+});
+</script>
 </body>
-
 </html>

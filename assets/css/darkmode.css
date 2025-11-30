@@ -114,7 +114,7 @@ body.dark {
     height: 65px;
     background: transparent;
     border-radius: 50%;
-    box-shadow: transparent;
+    box-shadow: 0 0 0 transparent;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -236,4 +236,18 @@ body.landing:not(.dark) #header {
 }
 #dark-mode-toggle {
     top: 10px !important;
+}
+.darkmode-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1200;
+}
+
+.darkmode-toggle button {
+    background: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
 }

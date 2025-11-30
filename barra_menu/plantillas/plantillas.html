@@ -4,69 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- GLOBAL STYLES -->
-    <div id="globalStyles"></div>
-    <script>
-        fetch("../..//components/global-styles.css")
-        fetch("../../components/header.html")
-fetch("../../components/footer.html")
-fetch("../../components/global-scripts.html")
-            .then(r => r.text())
-            .then(h => document.getElementById("globalStyles").innerHTML = h);
-    </script>
-
     <title>Vida Facil - Plantillas</title>
+
+    <!-- / estilos globales -->
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/darkmode.css">
+    <link rel="stylesheet" href="./assets/css/fontawesome-all.min.css">
+    <link rel="icon" href="./images/favicon.ico">
+    <noscript><link rel="stylesheet" href="./assets/css/noscript.css"></noscript>
 </head>
 
 <body class="landing is-preload">
 
-<!-- HEADER -->
-<div id="header"></div>
+    <!-- HEADER -->
+    <div id="header"></div>
+    <script>
+        // / misma función para que el Menú funcione también aquí
+        function initMenuToggle() {
+            const body = document.body;
+            const toggles = document.querySelectorAll('.menuToggle');
+            const menu = document.getElementById('menu');
+
+            if (!toggles.length || !menu) return;
+
+            toggles.forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    body.classList.toggle('is-menu-visible');
+                });
+            });
+
+            menu.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', function () {
+                    body.classList.remove('is-menu-visible');
+                });
+            });
+        }
+
+        fetch("./components/header.html")
+            .then(r => r.text())
+            .then(h => {
+                document.getElementById("header").innerHTML = h; // / inserta header
+                initMenuToggle();                               // / activa Menú
+            });
+    </script>
+
+    <div id="page-wrapper">
+
+        <section id="main">
+            <div class="contenedor-plantillas">
+                <h2 class="titulo-plantillas">Categorías de Plantillas</h2>
+
+                <button onclick="location.href='vista_previa_plantilla/vista_previa_monografia.html'">
+                    🎓✨ Plantilla Profesional de Monografía Universitaria
+                </button>
+
+                <button class="btn-categoria">Plantillas para horario</button>
+                <button class="btn-categoria">Plantillas para</button>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div id="footer"></div>
+    <script>
+        fetch("./components/footer.html")
+            .then(r => r.text())
+            .then(h => document.getElementById("footer").innerHTML = h);
+    </script>
+
+    <!-- SCRIPTS GLOBALES (SIN main.js) -->
+    <script src="./assets/js/jquery.min.js"></script>
+    <script src="./assets/js/jquery.scrollex.min.js"></script>
+    <script src="./assets/js/jquery.scrolly.min.js"></script>
+    <script src="./assets/js/browser.min.js"></script>
+    <script src="./assets/js/breakpoints.min.js"></script>
+    <script src="./assets/js/util.js"></script>
+    <script src="./assets/js/darkmode.js"></script>
 <script>
-fetch("../..//components/header.html")
-fetch("../../components/header.html")
-fetch("../../components/footer.html")
-fetch("../../components/global-scripts.html")
-    .then(r => r.text())
-    .then(h => document.getElementById("header").innerHTML = h);
+document.querySelectorAll('[data-include]').forEach(async el => {
+    const file = el.getAttribute('data-include');
+    try {
+        const response = await fetch(file);
+        const content = await response.text();
+        el.outerHTML = content;
+    } catch (err) {
+        console.error("Error cargando:", file, err);
+        el.innerHTML = "<!-- Error cargando componente -->";
+    }
+});
 </script>
-
-<div id="page-wrapper">
-
-    <section id="main">
-        <div class="contenedor-plantillas">
-            <h2 class="titulo-plantillas">Categorías de Plantillas</h2>
-
-            <button onclick="location.href='vista_previa_plantilla/vista_previa_monografia.html'">
-                🎓✨ Plantilla Profesional de Monografía Universitaria
-            </button>
-
-            <button class="btn-categoria">Plantillas para horario</button>
-            <button class="btn-categoria">Plantillas para</button>
-        </div>
-    </section>
-
-</div>
-
-<!-- FOOTER -->
-<div id="footer"></div>
-<script>
-  fetch("../../components/global-styles.css")
-fetch("../..//components/footer.html")
-fetch("../../components/header.html")
-fetch("../../components/global-scripts.html")
-    .then(r => r.text())
-    .then(h => document.getElementById("footer").innerHTML = h);
-</script>
-
-<!-- GLOBAL SCRIPTS -->
-<div id="globalScripts"></div>
-<script>
-fetch("../..//components/global-scripts.html")
-
-    .then(r => r.text())
-    .then(h => document.getElementById("globalScripts").innerHTML = h);
-</script>
-
 </body>
 </html>

@@ -1,16 +1,3 @@
-// --- Eliminar cualquier overlay del menú que esté bloqueando la página ---
-window.addEventListener("DOMContentLoaded", function () {
-    document.body.classList.remove("is-menu-visible");
-
-    // Quitar cualquier overlay que haya quedado
-    const overlay = document.querySelector('.panel, .panel-overlay');
-    if (overlay) {
-        overlay.classList.remove('visible');
-        overlay.style.display = 'none';
-    }
-});
-
-
 (function($) {
 	var	$window = $(window),
 		$body = $('body'),
@@ -62,7 +49,7 @@ window.addEventListener("DOMContentLoaded", function () {
 			.appendTo($body)
 			.panel({
 				delay: 500,
-				hideOnClick: false,
+				hideOnClick: true,
 				hideOnSwipe: true,
 				resetScroll: true,
 				resetForms: true,
@@ -85,12 +72,5 @@ window.addEventListener("DOMContentLoaded", function () {
 			});
 
 		}
-// Cerrar menú al hacer clic en cualquier enlace
-document.addEventListener("click", (e) => {
-    if (e.target.closest("#menu a")) {
-        document.body.classList.remove("is-menu-visible");
-    }
-});
-
 
 })(jQuery);
